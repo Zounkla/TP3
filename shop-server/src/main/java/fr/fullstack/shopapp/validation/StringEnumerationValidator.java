@@ -1,7 +1,7 @@
 package fr.fullstack.shopapp.validation;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,8 +16,7 @@ public class StringEnumerationValidator implements ConstraintValidator<StringEnu
         for (int i = 0; i < enums.length; i++) {
             names[i] = enums[i].name();
         }
-        Set<String> mySet = new HashSet<String>(Arrays.asList(names));
-        return mySet;
+        return new HashSet<>(Arrays.asList(names));
     }
 
     @Override

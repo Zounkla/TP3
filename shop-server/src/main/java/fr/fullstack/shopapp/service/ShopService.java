@@ -3,15 +3,14 @@ package fr.fullstack.shopapp.service;
 import fr.fullstack.shopapp.model.Product;
 import fr.fullstack.shopapp.model.Shop;
 import fr.fullstack.shopapp.repository.ShopRepository;
-import org.hibernate.search.mapper.orm.Search;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -66,14 +65,11 @@ public class ShopService {
     ) {
         // SORT
         if (sortBy.isPresent()) {
-            switch (sortBy.get()) {
-                case "name":
-                    return shopRepository.findByOrderByNameAsc(pageable);
-                case "createdAt":
-                    return shopRepository.findByOrderByCreatedAtAsc(pageable);
-                default:
-                    return shopRepository.findByOrderByNbProductsAsc(pageable);
-            }
+            return switch (sortBy.get()) {
+                case "name" -> shopRepository.findByOrderByNameAsc(pageable);
+                case "createdAt" -> shopRepository.findByOrderByCreatedAtAsc(pageable);
+                default -> shopRepository.findByOrderByNbProductsAsc(pageable);
+            };
         }
 
         // FILTERS
@@ -98,8 +94,7 @@ public class ShopService {
 
     private void deleteNestedRelations(Shop shop) {
         List<Product> products = shop.getProducts();
-        for (int i = 0; i < products.size(); i++) {
-            Product product = products.get(i);
+        for (Product product : products) {
             product.setShop(null);
             em.merge(product);
             em.flush();
@@ -108,7 +103,7 @@ public class ShopService {
 
     private Shop getShop(Long id) throws Exception {
         Optional<Shop> shop = shopRepository.findById(id);
-        if (!shop.isPresent()) {
+        if (shop.isEmpty()) {
             throw new Exception("Shop with id " + id + " not found");
         }
         return shop.get();
@@ -157,12 +152,9 @@ public class ShopService {
             );
         }
 
-        if (createdAfter.isPresent()) {
-            return shopRepository.findByCreatedAtGreaterThan(
-                    LocalDate.parse(createdAfter.get()), pageable
-            );
-        }
+        return createdAfter.map(s -> shopRepository.findByCreatedAtGreaterThan(
+                LocalDate.parse(s), pageable
+        )).orElse(null);
 
-        return null;
     }
 }

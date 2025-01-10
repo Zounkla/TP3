@@ -9,8 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import java.util.Optional;
 
 @Service
@@ -84,14 +84,14 @@ public class ProductService {
                 .stream().filter(o -> o.getLocale().equals("FR")).findFirst();
 
         // A name in french must be at least provided
-        if (!localizedProductFr.isPresent()) {
+        if (localizedProductFr.isEmpty()) {
             throw new Exception("A name in french must be at least provided");
         }
     }
 
     private Product getProduct(Long id) throws Exception {
         Optional<Product> product = productRepository.findById(id);
-        if (!product.isPresent()) {
+        if (product.isEmpty()) {
             throw new Exception("Product with id " + id + " not found");
         }
         return product.get();

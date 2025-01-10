@@ -9,8 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,8 +65,7 @@ public class CategoryService {
 
     private void deleteNestedRelations(Category category) {
         List<Product> products = category.getProducts();
-        for (int i = 0; i < products.size(); i++) {
-            Product product = products.get(i);
+        for (Product product : products) {
             List<Category> categories = product.getCategories();
             categories.remove(category);
             product.setCategories(categories);
@@ -77,7 +76,7 @@ public class CategoryService {
 
     private Category getCategory(Long id) throws Exception {
         Optional<Category> category = categoryRepository.findById(id);
-        if (!category.isPresent()) {
+        if (category.isEmpty()) {
             throw new Exception("Category with id " + id + " not found");
         }
         return category.get();
