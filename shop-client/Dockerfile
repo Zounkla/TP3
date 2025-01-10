@@ -1,5 +1,5 @@
 # Use a lighter version of Node as a parent image
-FROM node:19-alpine
+FROM node:22.13.0-alpine
 
 # Set the working directory to /app
 WORKDIR /app

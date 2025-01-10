@@ -20,7 +20,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ShopService } from '../services';
 import { LocalizationProvider, TimePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { Dayjs } from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import { MinimalShop, ObjectPropertyString } from '../types';
 import { useAppContext, useToastContext } from '../context';
 
@@ -89,11 +89,10 @@ const ShopForm = () => {
 
     const handleChange = (index: number, key: string, value: number | string | undefined) => {
         const openingHours = shop.openingHours;
-        const openingHour = {
+        openingHours[index] = {
             ...openingHours[index],
             [key]: value,
         };
-        openingHours[index] = openingHour;
         setShop({ ...shop, openingHours });
     };
 
@@ -199,7 +198,7 @@ const ShopForm = () => {
                                         <TimePicker
                                             label="Ouvre à"
                                             ampm={false}
-                                            value={`2014-08-18T${openingHour.openAt}`}
+                                            value={dayjs(`2014-08-18T${openingHour.openAt}`)}
                                             onChange={(v: Dayjs | null) =>
                                                 handleChange(index, 'openAt', v?.format('HH:mm:ss'))
                                             }
@@ -210,7 +209,7 @@ const ShopForm = () => {
                                         <TimePicker
                                             label="Ferme à"
                                             ampm={false}
-                                            value={`2014-08-18T${openingHour.closeAt}`}
+                                            value={dayjs(`2014-08-18T${openingHour.closeAt}`)}
                                             onChange={(v: Dayjs | null) =>
                                                 handleChange(index, 'closeAt', v?.format('HH:mm:ss'))
                                             }
