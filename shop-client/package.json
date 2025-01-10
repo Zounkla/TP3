@@ -23,17 +23,18 @@
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
         "react-router-dom": "^7.1.1",
-        "react-scripts": "4.0.3",
         "react-select": "^5.9.0",
         "react-select-async-paginate": "^0.7.9",
         "typescript": "^5.7.3",
-        "web-vitals": "^4.2.4"
+        "web-vitals": "^4.2.4",
+        "@rsbuild/core": "^1.1.13",
+        "@rsbuild/plugin-react": "^1.1.0"
     },
     "scripts": {
-        "start": "PORT=4200 react-scripts start",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject",
+        "start": "rsbuild dev --port 4200",
+        "build": "rsbuild build",
+        "test": "rsbuild test",
+        "preview": "rsbuild preview",
         "lint": "eslint --ext js,ts,tsx src"
     },
     "eslintConfig": {
