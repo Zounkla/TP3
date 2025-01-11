@@ -25,6 +25,7 @@ public class ShopService {
 
     @Transactional
     public Shop createShop(Shop shop) throws Exception {
+        System.out.println("Florian "  + shop.getId());
         try {
             Shop newShop = shopRepository.save(shop);
             // Refresh the entity after the save. Otherwise, @Formula does not work.

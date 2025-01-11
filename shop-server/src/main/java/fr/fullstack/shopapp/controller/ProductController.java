@@ -3,10 +3,12 @@ package fr.fullstack.shopapp.controller;
 import fr.fullstack.shopapp.model.Product;
 import fr.fullstack.shopapp.service.ProductService;
 import fr.fullstack.shopapp.util.ErrorValidation;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,7 +36,7 @@ public class ProductController {
     @Autowired
     private ProductService service;
 
-    @ApiOperation(value = "Create a product")
+    @Operation(summary = "Create a product")
     @PostMapping
     public ResponseEntity<Product> createProduct(@Valid @RequestBody Product product, Errors errors) {
         if (errors.hasErrors()) {
@@ -49,7 +51,7 @@ public class ProductController {
         }
     }
 
-    @ApiOperation(value = "Delete a product by its id")
+    @Operation(summary = "Delete a product by its id")
     @DeleteMapping("/{id}")
     public HttpStatus deleteProduct(@PathVariable long id) {
         try {
@@ -60,7 +62,11 @@ public class ProductController {
         }
     }
 
-    @ApiOperation(value = "Get a product by id")
+    @Operation(summary = "Get a product by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Product retrieved successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid product id")
+    })
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable long id) {
         try {
@@ -70,29 +76,25 @@ public class ProductController {
         }
     }
 
-    @ApiOperation(value = "Get products (filtering by shop and category is possible)")
-    @GetMapping
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "page",
-                              dataType = "integer",
-                              paramType = "query",
-                              value = "Results page you want to retrieve (0..N)",
-                              defaultValue = "0"),
-            @ApiImplicitParam(name = "size", dataType = "integer", paramType = "query",
-                              value = "Number of records per page", defaultValue = "5"),
+    @Operation(summary = "Get products (filtering by shop and category is possible)")
+    @Parameters({
+            @Parameter(name = "page", schema = @Schema(type = "integer", defaultValue = "0"), description = "Results page you want to retrieve (0..N)"),
+            @Parameter(name = "size", schema = @Schema(type = "integer", defaultValue = "5"), description = "Number of records per page"),
+            @Parameter(name = "shopId", schema = @Schema(type = "integer"), description = "Id of the shop"),
+            @Parameter(name = "categoryId", schema = @Schema(type = "integer"), description = "Id of the category")
     })
+    @GetMapping
     public ResponseEntity<Page<Product>> getProductsOfShop(
             Pageable pageable,
-            @ApiParam(value = "Id of the shop", example = "1") @RequestParam(required = false) Optional<Long> shopId,
-            @ApiParam(value = "Id of the category", example = "1") @RequestParam(required = false)
-            Optional<Long> categoryId
+            @RequestParam(required = false) Optional<Long> shopId,
+            @RequestParam(required = false) Optional<Long> categoryId
     ) {
         return ResponseEntity.ok(
                 service.getShopProductList(shopId, categoryId, pageable)
         );
     }
 
-    @ApiOperation(value = "Update a product")
+    @Operation(summary = "Update a product")
     @PutMapping
     public ResponseEntity<Product> updateProduct(@Valid @RequestBody Product product, Errors errors) {
         if (errors.hasErrors()) {

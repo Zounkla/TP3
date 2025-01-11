@@ -2,21 +2,13 @@ package fr.fullstack.shopapp.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Formula;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.GenericField;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -34,7 +26,8 @@ public class Shop {
     private LocalDate createdAt;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "shops_id_seq")
+    @SequenceGenerator(name = "shops_id_seq",  sequenceName = "shops_id_seq")
     private long id;
 
     @Column(nullable = false)
@@ -52,7 +45,8 @@ public class Shop {
     private Long nbProducts;
 
     @OneToMany(cascade = {CascadeType.ALL})
-    private List<@Valid OpeningHoursShop> openingHours = new ArrayList<>();
+    @Valid
+    private List<OpeningHoursShop> openingHours = new ArrayList<>();
 
     @OneToMany(mappedBy = "shop", fetch = FetchType.LAZY)
     @JsonIgnore
