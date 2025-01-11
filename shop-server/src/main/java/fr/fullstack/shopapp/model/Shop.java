@@ -26,7 +26,8 @@ public class Shop {
     private LocalDate createdAt;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "shops_id_seq")
+    @SequenceGenerator(name = "shops_id_seq",  sequenceName = "shops_id_seq")
     private long id;
 
     @Column(nullable = false)
