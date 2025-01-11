@@ -3,10 +3,10 @@ package fr.fullstack.shopapp.controller;
 import fr.fullstack.shopapp.model.Shop;
 import fr.fullstack.shopapp.service.ShopService;
 import fr.fullstack.shopapp.util.ErrorValidation;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,10 +34,12 @@ public class ShopController {
     @Autowired
     private ShopService service;
 
-    @ApiOperation(value = "Create a shop")
+    @Operation(summary = "Create a shop")
     @PostMapping
     public ResponseEntity<Shop> createShop(@Valid @RequestBody Shop shop, Errors errors) {
         if (errors.hasErrors()) {
+            errors.getAllErrors().forEach(error -> System.out.println("Validation error: " + error.getDefaultMessage()));
+
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, ErrorValidation.getErrorValidationMessage(errors));
         }
@@ -49,7 +51,7 @@ public class ShopController {
         }
     }
 
-    @ApiOperation(value = "Delete a shop by its id")
+    @Operation(summary = "Delete a shop by its id")
     @DeleteMapping("/{id}")
     public HttpStatus deleteShop(@PathVariable long id) {
         try {
@@ -60,27 +62,21 @@ public class ShopController {
         }
     }
 
-    @ApiOperation(value = "Get shops (sorting and filtering are possible)")
-    @GetMapping
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "page",
-                              dataType = "integer",
-                              paramType = "query",
-                              value = "Results page you want to retrieve (0..N)",
-                              defaultValue = "0"),
-            @ApiImplicitParam(name = "size", dataType = "integer", paramType = "query",
-                              value = "Number of records per page", defaultValue = "5"),
+    @Operation(summary = "Get shops (sorting and filtering are possible)")
+    @Parameters({
+            @Parameter(name = "page", schema = @Schema(type = "integer", defaultValue = "0"), description = "Results page you want to retrieve (0..N)"),
+            @Parameter(name = "size", schema = @Schema(type = "integer", defaultValue = "5"), description = "Number of records per page"),
+            @Parameter(name = "sortBy", schema = @Schema(type = "string"), description = "To sort the shops. Possible values are 'name', 'nbProducts' and 'createdAt'"),
+            @Parameter(name = "inVacations", schema = @Schema(type = "boolean"), description = "Define that the shops must be in vacations or not"),
+            @Parameter(name = "createdAfter", schema = @Schema(type = "string"), description = "Define that the shops must be created after this date"),
+            @Parameter(name = "createdBefore", schema = @Schema(type = "string"), description = "Define that the shops must be created before this date")
     })
+    @GetMapping
     public ResponseEntity<Page<Shop>> getAllShops(
             Pageable pageable,
-            @ApiParam(value = "To sort the shops. Possible values are 'name', 'nbProducts' and 'createdAt'",
-                      example = "name")
             @RequestParam(required = false) Optional<String> sortBy,
-            @ApiParam(value = "Define that the shops must be in vacations or not", example = "true")
             @RequestParam(required = false) Optional<Boolean> inVacations,
-            @ApiParam(value = "Define that the shops must be created after this date", example = "2022-11-15")
             @RequestParam(required = false) Optional<String> createdAfter,
-            @ApiParam(value = "Define that the shops must be created before this date", example = "2022-11-15")
             @RequestParam(required = false) Optional<String> createdBefore
 
     ) {
@@ -89,7 +85,7 @@ public class ShopController {
         );
     }
 
-    @ApiOperation(value = "Get a shop by id")
+    @Operation(summary = "Get a shop by id")
     @GetMapping("/{id}")
     public ResponseEntity<Shop> getShopById(@PathVariable long id) {
         try {
@@ -99,7 +95,7 @@ public class ShopController {
         }
     }
 
-    @ApiOperation(value = "Update a shop")
+    @Operation(summary = "Update a shop")
     @PutMapping
     public ResponseEntity<Shop> updateShop(@Valid @RequestBody Shop shop, Errors errors) {
         if (errors.hasErrors()) {
