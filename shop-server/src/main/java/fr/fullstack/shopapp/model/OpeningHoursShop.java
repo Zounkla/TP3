@@ -25,7 +25,8 @@ public class OpeningHoursShop {
     private int day;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "opening_hours_shop_id_seq")
+    @SequenceGenerator(name = "opening_hours_shop_id_seq",  sequenceName = "opening_hours_shop_id_seq")
     private long id;
 
     @Column(nullable = false)

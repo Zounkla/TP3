@@ -720,3 +720,4 @@ insert into products_categories (product_id, category_id) values (292, 45);
 
 create sequence hibernate_sequence start 295 increment 1;
 SELECT setval('shops_id_seq', (SELECT MAX(id) FROM shops) + 1);
+SELECT setval('opening_hours_shop_id_seq', (SELECT MAX(id) FROM opening_hours) + 1);

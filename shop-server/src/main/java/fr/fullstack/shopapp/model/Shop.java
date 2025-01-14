@@ -2,6 +2,7 @@ package fr.fullstack.shopapp.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import fr.fullstack.shopapp.validation.ConsistentOpeningHours;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Formula;
@@ -19,6 +20,7 @@ import java.util.List;
 @Entity
 @Table(name = "shops")
 @Indexed(index = "idx_shops")
+@ConsistentOpeningHours
 public class Shop {
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)

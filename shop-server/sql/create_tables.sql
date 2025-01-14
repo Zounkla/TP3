@@ -86,3 +86,4 @@ alter table shops_opening_hours
 add constraint FK8dcjdnasobclsvyy8wjfki7gj foreign key (shop_id) references shops;
 
 CREATE SEQUENCE IF NOT EXISTS shops_id_seq;
+CREATE SEQUENCE IF NOT EXISTS opening_hours_shop_id_seq;
