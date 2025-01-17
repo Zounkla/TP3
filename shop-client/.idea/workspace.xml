@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e83f50f4-db6c-491f-ad35-c973669feec0" name="Default Changelist" comment="" />
+    <list default="true" id="e83f50f4-db6c-491f-ad35-c973669feec0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../shop-server/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../shop-server/.idea/sqldialects.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/formatter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/formatter.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../shop-server/.idea/remote-targets.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../shop-server/.idea/remote-targets.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../shop-server/shop-app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../shop-server/shop-app.iml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,7 +26,7 @@
     <execution />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -33,10 +42,10 @@
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="2" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 7
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="2VWs9zWiFOjlUkuWUkQJadkLjcR" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -44,14 +53,16 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "/home/gleroy/Documents/[Perso]/UE_FullStack/TP3/shop-client",
+    "git-widget-placeholder": "feature/backend-price-in-cents",
+    "last_opened_file_path": "//wsl.localhost/Ubuntu/home/erwann/full_stack/TP3/shop-client",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "\\\\wsl.localhost\\Ubuntu\\home\\erwann\\full_stack\\TP3\\shop-client\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -67,6 +78,13 @@
       </list>
     </option>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-WS-243.22562.112" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
@@ -81,16 +99,11 @@
       <workItem from="1694963024890" duration="1221000" />
       <workItem from="1695107545542" duration="604000" />
       <workItem from="1701021903838" duration="1119000" />
+      <workItem from="1737106972707" duration="1072000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="2663" y="284" width="424" height="481" key="FileChooserDialogImpl" timestamp="1695114330140">
-      <screen x="1920" y="0" width="1920" height="1080" />
-    </state>
-    <state x="2663" y="284" width="424" height="481" key="FileChooserDialogImpl/1920.0.1920.1080/0.0.1920.1054@1920.0.1920.1080" timestamp="1695114330140" />
   </component>
 </project>
