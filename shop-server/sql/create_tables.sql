@@ -87,3 +87,12 @@ add constraint FK8dcjdnasobclsvyy8wjfki7gj foreign key (shop_id) references shop
 
 CREATE SEQUENCE IF NOT EXISTS shops_id_seq;
 CREATE SEQUENCE IF NOT EXISTS opening_hours_shop_id_seq;
+
+CREATE INDEX ON products (shop_id);
+CREATE INDEX ON products_categories (category_id);
+CREATE INDEX ON products_categories (product_id);
+CREATE INDEX ON products_localized_product (localized_product_id);
+CREATE INDEX ON products_localized_product (product_id);
+CREATE INDEX ON shops_opening_hours (opening_hours_id);
+CREATE INDEX ON shops_opening_hours (shop_id);
+
