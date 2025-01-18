@@ -50,6 +50,9 @@ const ShopForm = () => {
                     id: id,
                 });
             })
+            .catch(() => {
+                setToast({ severity: 'error', message: 'Une erreur est survenue lors de la récupération de la boutique' });
+            })
             .finally(() => setLoading(false));
     };
 

@@ -14,7 +14,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Filters, ShopCard } from '../components';
-import { useAppContext } from '../context';
+import { useAppContext, useToastContext } from '../context';
 import { ShopService } from '../services';
 import { ResponseArray, Shop } from '../types';
 
@@ -28,6 +28,7 @@ const Home = () => {
 
     const [sort, setSort] = useState<string>('');
     const [filters, setFilters] = useState<string>('');
+    const { setToast } = useToastContext();
 
     const getShops = () => {
         setLoading(true);
@@ -44,6 +45,9 @@ const Home = () => {
                 setShops(res.data.content);
                 setCount(res.data.totalPages);
                 setPage(res.data.pageable.pageNumber + 1);
+            })
+            .catch(() => {
+                setToast({ severity: 'error', message: 'Une erreur est survenue lors de la récupération des boutiques' });
             })
             .finally(() => setLoading(false));
     };

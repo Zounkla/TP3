@@ -29,6 +29,9 @@ const CategoryForm = () => {
                     id: id,
                 });
             })
+            .catch(() => {
+                setToast({ severity: 'error', message: 'Une erreur est survenue lors de la récupération de la catégorie' });
+            })
             .finally(() => setLoading(false));
     };
 

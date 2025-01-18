@@ -57,6 +57,9 @@ const ProductForm = () => {
                     setProduct({ ...res.data, id: id });
                 }
             })
+            .catch(() => {
+                setToast({ severity: 'error', message: 'Une erreur est survenue lors de la récupération du produit' });
+            })
             .finally(() => setLoading(false));
     };
 

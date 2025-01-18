@@ -3,7 +3,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CategoryCard } from '../components';
-import { useAppContext } from '../context';
+import { useAppContext, useToastContext } from '../context';
 import { CategoryService } from '../services';
 import { Category } from '../types';
 
@@ -14,6 +14,7 @@ const Categories = () => {
     const [count, setCount] = useState<number>(0);
     const [page, setPage] = useState<number>(0);
     const [pageSelected, setPageSelected] = useState<number>(0);
+    const { setToast } = useToastContext();
 
     const getCategories = () => {
         setLoading(true);
@@ -22,6 +23,9 @@ const Categories = () => {
                 setCategories(res.data.content);
                 setCount(res.data.totalPages);
                 setPage(res.data.pageable.pageNumber + 1);
+            })
+            .catch(() => {
+                setToast({ severity: 'error', message: 'Une erreur est survenue lors de la récupération des catégories' });
             })
             .finally(() => setLoading(false));
     };
