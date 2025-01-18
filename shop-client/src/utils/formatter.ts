@@ -16,5 +16,5 @@ export const priceFormatter = (price: number) => {
         style: 'currency',
         currency: 'EUR',
     });
-    return formatter.format(price / 10);
+    return formatter.format(price / 100);
 };
