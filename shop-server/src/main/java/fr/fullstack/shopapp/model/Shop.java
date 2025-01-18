@@ -46,6 +46,9 @@ public class Shop {
     @Formula(value = "(SELECT COUNT(*) FROM products p WHERE p.shop_id = id)")
     private Long nbProducts;
 
+    @Transient
+    private int nbCategory;
+
     @OneToMany(cascade = {CascadeType.ALL})
     @Valid
     private List<OpeningHoursShop> openingHours = new ArrayList<>();
@@ -82,6 +85,18 @@ public class Shop {
         return this.products;
     }
 
+    public int getNbCategory() {
+        List<Category> distinctCategories = new ArrayList<>();
+        for(Product product : getProducts()) {
+            for (Category category : product.getCategories()) {
+                if (!distinctCategories.contains(category)) {
+                    distinctCategories.add(category);
+                }
+            }
+        }
+        return distinctCategories.size();
+    }
+
     public void setId(long id) {
         this.id = id;
     }
@@ -105,4 +120,5 @@ public class Shop {
     public void setProducts(List<Product> products) {
         this.products = products;
     }
+
 }
