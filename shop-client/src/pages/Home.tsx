@@ -32,15 +32,8 @@ const Home = () => {
 
     const getShops = () => {
         setLoading(true);
-        let promisedShops: Promise<ResponseArray<Shop>>;
-        if (sort) {
-            promisedShops = ShopService.getShopsSorted(pageSelected, 9, sort);
-        } else if (filters) {
-            promisedShops = ShopService.getShopsFiltered(pageSelected, 9, filters);
-        } else {
-            promisedShops = ShopService.getShops(pageSelected, 9);
-        }
-        promisedShops
+
+        ShopService.getShops(pageSelected, 9, filters, sort)
             .then((res) => {
                 setShops(res.data.content);
                 setCount(res.data.totalPages);
@@ -106,7 +99,6 @@ const Home = () => {
                         <MenuItem value="name">Nom</MenuItem>
                         <MenuItem value="createdAt">Date de création</MenuItem>
                         <MenuItem value="nbProducts">Nombre de produits</MenuItem>
-                        <MenuItem value="nbCategory">Nombre de catégories</MenuItem>
                     </Select>
                 </FormControl>
 

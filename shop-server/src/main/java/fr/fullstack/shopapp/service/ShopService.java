@@ -7,13 +7,17 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ShopService {
@@ -63,6 +67,23 @@ public class ShopService {
             Optional<String> createdAfter,
             Pageable pageable
     ) {
+        Page<Shop> shopList = getShopListWithFilter(inVacations, createdBefore, createdAfter, pageable);
+        if (sortBy.isPresent() && shopList != null) {
+            return switch (sortBy.get()) {
+                case "name" -> new PageImpl<>(
+                        shopList.getContent().stream()
+                                .sorted(Comparator.comparing(Shop::getName))
+                                .collect(Collectors.toList()), pageable, shopList.getTotalElements());
+                case "createdAt" -> new PageImpl<>(
+                        shopList.getContent().stream()
+                                .sorted(Comparator.comparing(Shop::getCreatedAt))
+                                .collect(Collectors.toList()), pageable, shopList.getTotalElements());
+                default -> new PageImpl<>(
+                        shopList.getContent().stream()
+                                .sorted(Comparator.comparing(Shop::getNbProducts))
+                                .collect(Collectors.toList()), pageable, shopList.getTotalElements());
+            };
+        }
         // SORT
         if (sortBy.isPresent()) {
             return switch (sortBy.get()) {
@@ -73,7 +94,6 @@ public class ShopService {
         }
 
         // FILTERS
-        Page<Shop> shopList = getShopListWithFilter(inVacations, createdBefore, createdAfter, pageable);
         if (shopList != null) {
             return shopList;
         }

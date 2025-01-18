@@ -3,8 +3,16 @@ import axios, { AxiosResponse } from 'axios';
 import { Shop } from '../types';
 import { ResponseArray } from '../types/response';
 
-export function getShops(page: number, size: number): Promise<ResponseArray<Shop>> {
-    return axios.get(`${process.env.REACT_APP_API}/shops?page=${page}&size=${size}`);
+export function getShops(page: number, size: number,
+                         urlFilters: string, sort: string): Promise<ResponseArray<Shop>> {
+    return axios.get(`${process.env.REACT_APP_API}/shops?page=${page}&size=${size}
+        &sortBy=${sort}${urlFilters}`);
+}
+
+export function getShopsFilteredAndSorted(page: number, size: number,
+                                          urlFilters: string, sort: string): Promise<ResponseArray<Shop>> {
+    return axios.get(`${process.env.REACT_APP_API}/shops?page=${page}&size=${size}
+        &sortBy=${sort}${urlFilters}`);
 }
 
 export function getShopsSorted(page: number, size: number, sort: string): Promise<ResponseArray<Shop>> {
