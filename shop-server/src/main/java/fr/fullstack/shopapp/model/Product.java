@@ -46,7 +46,7 @@ public class Product {
         return localizedProduct;
     }
 
-    public float getPrice() {
+    public int getPrice() {
         return price;
     }
 
