@@ -66,6 +66,7 @@ const ProductForm = () => {
 
     const createProduct = (productToCreate: MinimalProduct) => {
         setLoading(true);
+        productToCreate.price = productToCreate.price * 100;
         ProductService.createProduct(productToCreate)
             .then(() => {
                 navigate('/product');
