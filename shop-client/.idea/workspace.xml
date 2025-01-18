@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e83f50f4-db6c-491f-ad35-c973669feec0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../shop-server/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../shop-server/.idea/sqldialects.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+    <list default="true" id="e83f50f4-db6c-491f-ad35-c973669feec0" name="Default Changelist" comment="fix : multiply the input price by 100 to send it in cents to backend">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/formatter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/formatter.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../shop-server/.idea/remote-targets.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../shop-server/.idea/remote-targets.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../shop-server/shop-app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../shop-server/shop-app.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +22,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Erwann27"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Zounkla/TP3.git",
+    "accountId": "e2df3667-466b-420f-a760-427e06dd8a4e"
+  }
+}]]></component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -54,8 +60,9 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "feature/backend-price-in-cents",
+    "git-widget-placeholder": "feature/frontend-fix-prices",
     "last_opened_file_path": "//wsl.localhost/Ubuntu/home/erwann/full_stack/TP3/shop-client",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -100,10 +107,33 @@
       <workItem from="1695107545542" duration="604000" />
       <workItem from="1701021903838" duration="1119000" />
       <workItem from="1737106972707" duration="1072000" />
+      <workItem from="1737184220244" duration="3071000" />
     </task>
+    <task id="LOCAL-00001" summary="fix : divide the price by 100, to see it in euros">
+      <option name="closed" value="true" />
+      <created>1737184349787</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1737184349787</updated>
+    </task>
+    <task id="LOCAL-00002" summary="fix : multiply the input price by 100 to send it in cents to backend">
+      <option name="closed" value="true" />
+      <created>1737187253669</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1737187253669</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fix : divide the price by 100, to see it in euros" />
+    <MESSAGE value="fix : multiply the input price by 100 to send it in cents to backend" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix : multiply the input price by 100 to send it in cents to backend" />
   </component>
 </project>
