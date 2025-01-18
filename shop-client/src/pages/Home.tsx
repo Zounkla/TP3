@@ -102,6 +102,7 @@ const Home = () => {
                         <MenuItem value="name">Nom</MenuItem>
                         <MenuItem value="createdAt">Date de création</MenuItem>
                         <MenuItem value="nbProducts">Nombre de produits</MenuItem>
+                        <MenuItem value="nbCategory">Nombre de catégories</MenuItem>
                     </Select>
                 </FormControl>
 

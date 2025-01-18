@@ -7,6 +7,7 @@ export type Shop = {
     inVacations: boolean;
     openingHours: OpeningHours[];
     nbProducts: number;
+    nbCategory: number;
 };
 
 export type MinimalShop = {
@@ -14,4 +15,5 @@ export type MinimalShop = {
     name: string;
     inVacations: boolean;
     openingHours: { day: number; openAt: string; closeAt: string }[];
+    nbCategory: number;
 };
