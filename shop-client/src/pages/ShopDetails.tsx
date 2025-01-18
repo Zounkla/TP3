@@ -118,7 +118,7 @@ const ShopDetails = () => {
             </Box>
 
             <Typography variant="h4" sx={{ textAlign: 'center', mb: 2 }}>
-                Les produits :
+                Les produits ({shop.nbCategory} {pluralize('catégorie différente', shop.nbCategory)}) :
             </Typography>
             {id && <ShopProducts shopId={id} />}
         </Paper>
