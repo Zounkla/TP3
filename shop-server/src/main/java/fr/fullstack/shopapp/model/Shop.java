@@ -4,15 +4,16 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import fr.fullstack.shopapp.validation.ConsistentOpeningHours;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Formula;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.GenericField;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
+import org.springframework.data.elasticsearch.annotations.Document;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ import java.util.List;
 @Table(name = "shops")
 @Indexed(index = "idx_shops")
 @ConsistentOpeningHours
+@Document(indexName = "shops")
 public class Shop {
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -44,7 +46,7 @@ public class Shop {
     private String name;
 
     @Formula(value = "(SELECT COUNT(*) FROM products p WHERE p.shop_id = id)")
-    private Long nbProducts;
+    private long nbProducts;
 
     @Transient
     private int nbCategory;

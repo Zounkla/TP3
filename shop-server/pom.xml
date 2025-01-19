@@ -78,6 +78,10 @@
 			<artifactId>hibernate-search-backend-elasticsearch</artifactId>
 			<version>7.2.2.Final</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-elasticsearch</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
