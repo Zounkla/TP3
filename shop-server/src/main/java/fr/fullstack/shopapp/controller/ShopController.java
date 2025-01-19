@@ -35,16 +35,18 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/v1/shops")
 public class ShopController {
-    // TODO ADD PLAIN TEXT SEARCH FOR SHOP
+
     @Autowired
     private ShopService service;
 
     @Operation(summary = "Create a shop")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Shop created"),
+            @ApiResponse(responseCode = "400", description = "Invalid input")
+    })
     @PostMapping
     public ResponseEntity<Shop> createShop(@Valid @RequestBody Shop shop, Errors errors) {
         if (errors.hasErrors()) {
-            errors.getAllErrors().forEach(error -> System.out.println("Validation error: " + error.getDefaultMessage()));
-
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, ErrorValidation.getErrorValidationMessage(errors));
         }
@@ -57,6 +59,10 @@ public class ShopController {
     }
 
     @Operation(summary = "Delete a shop by its id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Shop deleted"),
+            @ApiResponse(responseCode = "400", description = "Invalid shop id")
+    })
     @DeleteMapping("/{id}")
     public HttpStatus deleteShop(@PathVariable long id) {
         try {
@@ -75,6 +81,9 @@ public class ShopController {
             @Parameter(name = "inVacations", schema = @Schema(type = "boolean"), description = "Define that the shops must be in vacations or not"),
             @Parameter(name = "createdAfter", schema = @Schema(type = "string"), description = "Define that the shops must be created after this date"),
             @Parameter(name = "createdBefore", schema = @Schema(type = "string"), description = "Define that the shops must be created before this date")
+    })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Shops retrieved successfully"),
     })
     @GetMapping
     public ResponseEntity<Page<Shop>> getAllShops(
@@ -112,6 +121,10 @@ public class ShopController {
 
     @Operation(summary = "Get a shop by id")
     @GetMapping("/{id}")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Shop retrieved successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid shop id")
+    })
     public ResponseEntity<Shop> getShopById(@PathVariable long id) {
         try {
             return ResponseEntity.ok().body(service.getShopById(id));
@@ -121,6 +134,10 @@ public class ShopController {
     }
 
     @Operation(summary = "Update a shop")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Shop modified"),
+            @ApiResponse(responseCode = "400", description = "Invalid input")
+    })
     @PutMapping
     public ResponseEntity<Shop> updateShop(@Valid @RequestBody Shop shop, Errors errors) {
         if (errors.hasErrors()) {
