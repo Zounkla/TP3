@@ -2,7 +2,7 @@ package fr.fullstack.shopapp.service;
 
 import fr.fullstack.shopapp.model.Category;
 import fr.fullstack.shopapp.model.Product;
-import fr.fullstack.shopapp.repository.CategoryRepository;
+import fr.fullstack.shopapp.repository.jpa.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

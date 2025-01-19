@@ -7,6 +7,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,6 +35,10 @@ public class CategoryController {
     private CategoryService service;
 
     @Operation(summary = "Create a category")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Category created"),
+            @ApiResponse(responseCode = "400", description = "Invalid input")
+    })
     @PostMapping
     public ResponseEntity<Category> createCategory(@Valid @RequestBody Category category, Errors errors) {
         if (errors.hasErrors()) {
@@ -48,6 +54,10 @@ public class CategoryController {
     }
 
     @Operation(summary = "Delete a category by its id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Category deleted"),
+            @ApiResponse(responseCode = "400", description = "Invalid category id")
+    })
     @DeleteMapping("/{id}")
     public HttpStatus deleteCategory(@PathVariable long id) {
         try {
@@ -67,12 +77,19 @@ public class CategoryController {
                     schema = @Schema(type = "integer", defaultValue = "5"),
                     description = "Number of records per page")
     })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Categories retrieved successfully"),
+    })
     @GetMapping
     public ResponseEntity<Page<Category>> getAllCategories(Pageable pageable) {
         return ResponseEntity.ok(service.getCategoryList(pageable));
     }
 
     @Operation(summary = "Get a category by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Category retrieved successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid category id"),
+    })
     @GetMapping("/{id}")
     public ResponseEntity<Category> getCategoryById(@PathVariable long id) {
         try {
@@ -83,6 +100,10 @@ public class CategoryController {
     }
 
     @Operation(summary = "Update a category")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Category modified"),
+            @ApiResponse(responseCode = "400", description = "Invalid input")
+    })
     @PutMapping
     public ResponseEntity<Category> updateCategory(@Valid @RequestBody Category category, Errors errors) {
         if (errors.hasErrors()) {

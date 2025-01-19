@@ -1,8 +1,10 @@
 package fr.fullstack.shopapp.service;
 
+import fr.fullstack.shopapp.dto.ShopDTO;
 import fr.fullstack.shopapp.model.Product;
 import fr.fullstack.shopapp.model.Shop;
-import fr.fullstack.shopapp.repository.ShopRepository;
+import fr.fullstack.shopapp.repository.elasticsearch.ShopElasticRepository;
+import fr.fullstack.shopapp.repository.jpa.ShopRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -26,6 +27,9 @@ public class ShopService {
 
     @Autowired
     private ShopRepository shopRepository;
+
+    @Autowired
+    private ShopElasticRepository shopElasticRepository;
 
     @Transactional
     public Shop createShop(Shop shop) throws Exception {
@@ -102,6 +106,28 @@ public class ShopService {
         return shopRepository.findByOrderByIdAsc(pageable);
     }
 
+    public List<ShopDTO> fullTextShopSearch(String input, Optional<Boolean> inVacations,
+                                            Optional<String> createdAfter, Optional<String> createdBefore) {
+
+
+        List<Shop> shops = shopElasticRepository.findByNameContaining(input);
+        if (inVacations.isPresent()) {
+            shops = filterByVacationStatus(shops, inVacations.get());
+        }
+
+        if (createdAfter.isPresent()) {
+            LocalDate afterDate = LocalDate.parse(createdAfter.get());
+            shops = filterByCreationDateAfter(shops, afterDate);
+        }
+
+        if (createdBefore.isPresent()) {
+            LocalDate beforeDate = LocalDate.parse(createdBefore.get());
+            shops = filterByCreationDateBefore(shops, beforeDate);
+        }
+
+        return shops.stream().map(this::shopToDTO).toList();
+    }
+
     @Transactional
     public Shop updateShop(Shop shop) throws Exception {
         try {
@@ -176,5 +202,36 @@ public class ShopService {
                 LocalDate.parse(s), pageable
         )).orElse(null);
 
+    }
+
+    private List<Shop> filterByVacationStatus(List<Shop> shops, Boolean inVacation) {
+        return shops.stream()
+                .filter(shop -> shop.getInVacations() == inVacation)
+                .toList();
+    }
+
+    private List<Shop> filterByCreationDateAfter(List<Shop> shops, LocalDate afterDate) {
+        return shops.stream()
+                .filter(shop -> shop.getCreatedAt().isAfter(afterDate))
+                .toList();
+    }
+
+    private List<Shop> filterByCreationDateBefore(List<Shop> shops, LocalDate beforeDate) {
+        return shops.stream()
+                .filter(shop -> shop.getCreatedAt().isBefore(beforeDate))
+                .toList();
+    }
+
+    private ShopDTO shopToDTO(Shop shop) {
+        ShopDTO dto = new ShopDTO();
+        dto.setId(shop.getId());
+        dto.setCreatedAt(shop.getCreatedAt());
+        dto.setInVacations(shop.getInVacations());
+        dto.setName(shop.getName());
+        dto.setNbProducts(shop.getNbProducts());
+        dto.setOpeningHours(shop.getOpeningHours());
+        dto.setProducts(shop.getProducts());
+        dto.setNumberOfCategories(shop.getNbCategory());
+        return dto;
     }
 }

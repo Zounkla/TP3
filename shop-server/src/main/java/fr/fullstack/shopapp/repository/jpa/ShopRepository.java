@@ -1,4 +1,4 @@
-package fr.fullstack.shopapp.repository;
+package fr.fullstack.shopapp.repository.jpa;
 
 import fr.fullstack.shopapp.model.Shop;
 import org.springframework.data.domain.Page;

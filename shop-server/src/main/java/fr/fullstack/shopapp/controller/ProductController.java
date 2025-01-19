@@ -37,6 +37,10 @@ public class ProductController {
     private ProductService service;
 
     @Operation(summary = "Create a product")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Product created"),
+            @ApiResponse(responseCode = "400", description = "Invalid input")
+    })
     @PostMapping
     public ResponseEntity<Product> createProduct(@Valid @RequestBody Product product, Errors errors) {
         if (errors.hasErrors()) {
@@ -52,6 +56,10 @@ public class ProductController {
     }
 
     @Operation(summary = "Delete a product by its id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Product deleted"),
+            @ApiResponse(responseCode = "400", description = "Invalid product id")
+    })
     @DeleteMapping("/{id}")
     public HttpStatus deleteProduct(@PathVariable long id) {
         try {
@@ -83,6 +91,9 @@ public class ProductController {
             @Parameter(name = "shopId", schema = @Schema(type = "integer"), description = "Id of the shop"),
             @Parameter(name = "categoryId", schema = @Schema(type = "integer"), description = "Id of the category")
     })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Products retrieved successfully"),
+    })
     @GetMapping
     public ResponseEntity<Page<Product>> getProductsOfShop(
             Pageable pageable,
@@ -95,6 +106,10 @@ public class ProductController {
     }
 
     @Operation(summary = "Update a product")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Product modified"),
+            @ApiResponse(responseCode = "400", description = "Invalid input")
+    })
     @PutMapping
     public ResponseEntity<Product> updateProduct(@Valid @RequestBody Product product, Errors errors) {
         if (errors.hasErrors()) {
