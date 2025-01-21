@@ -1,5 +1,5 @@
 import React, { JSX } from 'react';
-import { AppBar, Box, Button, Toolbar, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { AppBar, Box, Button, Drawer, Toolbar, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Loader from './Loader';
 import SwitchLanguage from './SwitchLanguage';
