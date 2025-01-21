@@ -11,12 +11,12 @@ import {
     Typography,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Filters, ShopCard } from '../components';
 import { useAppContext, useToastContext } from '../context';
 import { ShopService } from '../services';
-import { ResponseArray, Shop } from '../types';
+import { Shop } from '../types';
 
 const Home = () => {
     const navigate = useNavigate();
